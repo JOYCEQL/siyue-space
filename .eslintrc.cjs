@@ -22,7 +22,10 @@ module.exports = {
   ignorePatterns: ["!**/.server", "!**/.client"],
 
   // Base config
-  extends: ["eslint:recommended"],
+  extends: [
+    "eslint:recommended",
+    "plugin:prettier/recommended", // 添加 prettier 配置
+  ],
 
   overrides: [
     // React
@@ -34,6 +37,7 @@ module.exports = {
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
+        "prettier", // 添加 prettier 配置
       ],
       settings: {
         react: {
@@ -70,6 +74,7 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
         "plugin:import/recommended",
         "plugin:import/typescript",
+        "prettier", // 添加 prettier 配置
       ],
     },
 
