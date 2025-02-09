@@ -20,10 +20,7 @@ export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps) =>
   const fetcher = useFetcher();
 
   const persistTheme = (newTheme: Theme) => {
-    fetcher.submit(
-      { theme: newTheme },
-      { action: "/api/theme", method: "post" }
-    );
+    fetcher.submit({ theme: newTheme }, { action: "/api/theme", method: "post" });
   };
 
   const toggleTheme = () => {
@@ -42,8 +39,8 @@ export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps) =>
     const initialTheme = document.documentElement.classList.contains("dark")
       ? "dark"
       : prefersDark
-      ? "dark"
-      : "light";
+        ? "dark"
+        : "light";
     setTheme(initialTheme);
   }, [defaultTheme]);
 
@@ -55,9 +52,5 @@ export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps) =>
     }
   }, [theme]);
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
 };
