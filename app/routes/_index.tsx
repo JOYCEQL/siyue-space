@@ -4,6 +4,7 @@ import { Avatar } from "~/components/Avatar";
 import { SocialLinks } from "~/components/SocialLinks";
 import { Skills } from "~/components/Skills";
 import { Projects } from "~/components/Projects";
+import { Header } from "~/components/Header";
 
 export const meta: MetaFunction = () => {
   return [
@@ -28,50 +29,51 @@ const skills = ["React", "Vue", "Taro", "Next.js", "Typescript", "Node.js"];
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-[#fafaf9] text-gray-900 transition-colors dark:bg-black dark:text-white">
-      <div className="mx-auto max-w-4xl px-4 py-8">
-        <div className="absolute right-4 top-4">
-          <ThemeToggle />
+    <div className="flex min-h-screen flex-col bg-[#fafaf9] text-gray-900 transition-colors dark:bg-black dark:text-white">
+      <div className="mx-auto w-full max-w-6xl px-4">
+        <div className="rounded-2xl bg-white shadow-sm dark:bg-white/10">
+          <Header />
+          <main className="p-8 md:p-12">
+            {/* Hero Section */}
+            <div className="mb-16 flex flex-row-reverse items-start justify-between gap-8">
+              <div className="relative shrink-0">
+                <Avatar src="/images/avatars/avatar.jpeg" alt="SiYue" size="lg" />
+              </div>
+              <div className="max-w-2xl text-left">
+                <h1 className="mb-4 flex items-center gap-3 text-4xl font-bold md:text-6xl">
+                  Hi, I'm SiYue
+                  <span role="img" aria-label="waving hand" className="inline-block">
+                    👋
+                  </span>
+                </h1>
+                <p className="mb-4 text-xl leading-relaxed text-gray-600 dark:text-gray-300 md:text-2xl">
+                  一名不是很全栈的前端工程师。热爱创造事物并帮助他人。
+                </p>
+                <SocialLinks links={socialLinks} />
+              </div>
+            </div>
+
+            {/* About Section */}
+            <section className="mb-16">
+              <h2 className="mb-4 text-xl font-bold md:text-2xl">关于我</h2>
+              <p className="text-gray-600 dark:text-gray-300">
+                在2024年4月，做了一个决定，放弃原有的事业从杭州来到成都，一切正在悄悄变化...
+              </p>
+            </section>
+
+            {/* Skills Section */}
+            <section className="mb-16">
+              <h2 className="mb-4 text-xl font-bold md:text-2xl">技能</h2>
+              <Skills skills={skills} />
+            </section>
+
+            {/* Projects Section */}
+            <section className="mb-16">
+              <h2 className="mb-4 text-xl font-bold md:text-2xl">产品</h2>
+              <Projects />
+            </section>
+          </main>
         </div>
-
-        {/* Hero Section */}
-        <div className="mb-16 flex flex-row-reverse items-start justify-between">
-          <div className="relative">
-            <Avatar src="/images/avatars/avatar.jpeg" alt="SiYue" size="lg" />
-          </div>
-          <div className="max-w-2xl">
-            <h1 className="mb-4 flex items-center gap-3 text-6xl font-bold">
-              Hi, I'm SiYue
-              <span role="img" aria-label="waving hand" className="inline-block">
-                👋
-              </span>
-            </h1>
-            <p className="mb-4 text-2xl leading-relaxed text-gray-600 dark:text-gray-300">
-              一名不是很全栈的前端工程师。热爱创造事物并帮助他人。
-            </p>
-            <SocialLinks links={socialLinks} />
-          </div>
-        </div>
-
-        {/* About Section */}
-        <section className="mb-16">
-          <h2 className="mb-4 text-2xl font-bold">关于我</h2>
-          <p className="text-gray-600 dark:text-gray-300">
-            在2024年4月，做了一个决定，放弃原有的事业从杭州来到成都，一切正在悄悄变化...
-          </p>
-        </section>
-
-        {/* Skills Section */}
-        <section className="mb-16">
-          <h2 className="mb-4 text-2xl font-bold">技能</h2>
-          <Skills skills={skills} />
-        </section>
-
-        {/* Projects Section */}
-        <section className="mb-16">
-          <h2 className="mb-4 text-2xl font-bold">产品</h2>
-          <Projects />
-        </section>
       </div>
     </div>
   );
