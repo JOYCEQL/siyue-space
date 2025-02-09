@@ -1,28 +1,16 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Header } from "~/components/Header";
 import { Globe } from "lucide-react";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "产品 - SiYue Space" }, { name: "description", content: "SiYue 的产品作品集" }];
+  return [{ title: "产品 - SiYue Space" }, { name: "description", content: "SiYue 的产品" }];
 };
-
-interface ProjectTechnology {
-  name: string;
-  className?: string;
-}
-
-interface ProjectLink {
-  type: "website" | "source";
-  url: string;
-}
 
 interface Project {
   title: string;
   description: string;
   image: string;
-  date: string;
-  technologies: ProjectTechnology[];
-  links: ProjectLink[];
+  technologies: { name: string }[];
+  links: { type: "website" | "source"; url: string }[];
 }
 
 const PROJECTS: Project[] = [
@@ -30,7 +18,6 @@ const PROJECTS: Project[] = [
     title: "Magic Resume",
     description: "一款AI驱动的开源简历编辑器，丝滑流畅的用户体验",
     image: "/images/projects/magic-resume.png",
-    date: "",
     technologies: [
       { name: "Next.js" },
       { name: "Typescript" },
@@ -49,15 +36,13 @@ const PROJECTS: Project[] = [
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/5">
+    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white transition-all hover:scale-[1.02] dark:border-gray-800 dark:bg-white/5">
       <div className="relative aspect-[16/9] overflow-hidden">
         <img src={project.image} alt={project.title} className="h-full w-full object-cover" />
       </div>
       <div className="p-6">
         <h3 className="mb-2 text-2xl font-bold">{project.title}</h3>
-        {project.date && (
-          <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">{project.date}</p>
-        )}
+        <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">{project.date}</p>
         <p className="mb-4 text-gray-600 dark:text-gray-300">{project.description}</p>
         <div className="mb-4 flex flex-wrap gap-2">
           {project.technologies.map(tech => (
@@ -101,20 +86,13 @@ function ProjectCard({ project }: { project: Project }) {
 
 export default function Products() {
   return (
-    <div className="flex min-h-screen flex-col bg-[#fafaf9] text-gray-900 dark:bg-black dark:text-white">
-      <div className="mx-auto w-full max-w-6xl px-4">
-        <div className="min-h-screen rounded-2xl bg-white shadow-sm dark:bg-white/10">
-          <Header />
-          <main className="p-8 md:p-12">
-            <h1 className="mb-8 text-3xl font-bold md:text-4xl">产品</h1>
-            <div className="grid gap-6 md:grid-cols-2">
-              {PROJECTS.map(project => (
-                <ProjectCard key={project.title} project={project} />
-              ))}
-            </div>
-          </main>
-        </div>
+    <>
+      <h1 className="mb-8 text-3xl font-bold md:text-4xl">产品</h1>
+      <div className="grid gap-6 md:grid-cols-2">
+        {PROJECTS.map(project => (
+          <ProjectCard key={project.title} project={project} />
+        ))}
       </div>
-    </div>
+    </>
   );
 }
