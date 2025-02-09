@@ -64,7 +64,7 @@ export default {
           "5": "hsl(var(--chart-5))",
         },
         code: {
-          green: "#3DD68C",
+          green: "#14b8a6",
         },
       },
     },

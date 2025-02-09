@@ -29,9 +29,9 @@ const skills = ["React", "Vue", "Taro", "Next.js", "Typescript", "Node.js"];
 
 export default function Index() {
   return (
-    <div className="flex min-h-screen flex-col bg-[#fafaf9] text-gray-900 transition-colors dark:bg-black dark:text-white">
+    <div className="flex min-h-screen flex-col bg-[#fafaf9] text-gray-900 dark:bg-black dark:text-white">
       <div className="mx-auto w-full max-w-6xl px-4">
-        <div className="rounded-2xl bg-white shadow-sm dark:bg-white/10">
+        <div className="min-h-screen rounded-2xl bg-white shadow-sm dark:bg-white/10">
           <Header />
           <main className="p-8 md:p-12">
             {/* Hero Section */}

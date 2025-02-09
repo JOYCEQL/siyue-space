@@ -20,6 +20,7 @@ export const ThemeProvider = ({ children, defaultTheme }: ThemeProviderProps) =>
   const fetcher = useFetcher();
 
   const persistTheme = (newTheme: Theme) => {
+    window.localStorage.setItem('theme', newTheme);
     fetcher.submit({ theme: newTheme }, { action: "/api/theme", method: "post" });
   };
 

@@ -33,8 +33,41 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                function getThemePreference() {
+                  const theme = window.localStorage.getItem('theme');
+                  if (theme) return theme;
+                  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                
+                function setThemeClass(theme) {
+                  if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.style.setProperty('color-scheme', 'dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.style.setProperty('color-scheme', 'light');
+                  }
+                }
+
+                const theme = getThemePreference();
+                setThemeClass(theme);
+
+                // 监听系统主题变化
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                  if (!window.localStorage.getItem('theme')) {
+                    setThemeClass(e.matches ? 'dark' : 'light');
+                  }
+                });
+              })();
+            `,
+          }}
+        />
       </head>
-      <body className="min-h-screen bg-white text-black transition-colors dark:bg-gray-900 dark:text-white">
+      <body className="min-h-screen bg-[#fafaf9] text-black dark:bg-black dark:text-white">
         <ThemeProvider defaultTheme={theme}>{children}</ThemeProvider>
         <ScrollRestoration />
         <Scripts />
