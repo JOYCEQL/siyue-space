@@ -1,11 +1,12 @@
 import { json } from "@remix-run/node";
 import type { LoaderFunction } from "@remix-run/node";
-import { useLoaderData, Link, useParams } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { getPost } from "~/utils/mdx.server";
 import type { Post } from "~/utils/mdx.server";
-import { getMDXComponent } from "mdx-bundler/client";
 import { useMemo } from "react";
-import { ArrowLeft } from "lucide-react";
+import * as runtime from "react/jsx-runtime";
+import { runSync } from "@mdx-js/mdx";
+import { MDXProvider } from "@mdx-js/react";
 
 export const loader: LoaderFunction = async ({ params }) => {
   const post = await getPost(params.postId!);
@@ -15,10 +16,20 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json({ post });
 };
 
-export default function Post() {
-  const { postId } = useParams();
+const components = {
+  pre: (props: any) => <pre className="prose relative rounded-lg" {...props} />,
+  code: (props: any) => (
+    <code className="relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm" {...props} />
+  ),
+};
+
+export default function PostRoute() {
   const { post } = useLoaderData<{ post: Post }>();
-  const Component = useMemo(() => getMDXComponent(post.content), [post.content]);
+
+  const Content = useMemo(() => {
+    const { default: Component } = runSync(post.content, runtime);
+    return Component;
+  }, [post.content]);
 
   return (
     <article className="prose prose-gray mx-auto dark:prose-invert lg:prose-lg">
@@ -36,7 +47,9 @@ export default function Post() {
           ))}
         </div>
       </header>
-      <Component />
+      <MDXProvider components={components}>
+        <Content />
+      </MDXProvider>
     </article>
   );
 }

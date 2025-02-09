@@ -5,6 +5,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import { getTheme } from "./utils/theme.server";
 
 import "./tailwind.css";
+import "./styles/mdx.css";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
