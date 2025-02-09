@@ -1,0 +1,98 @@
+---
+title: React 最佳实践：如何写出更好的组件
+date: 2024-02-09
+description: 分享一些 React 开发中的最佳实践，帮助你写出更好的组件
+tags: ["react", "frontend", "best-practices"]
+---
+
+# React 最佳实践：如何写出更好的组件
+
+在 React 开发中，写出好的组件不仅能提高代码质量，还能提升开发效率。本文将分享一些实用的最佳实践。
+
+## 1. 保持组件的单一职责
+
+每个组件应该只做一件事情。如果你发现一个组件做了太多事情，考虑将其拆分成多个小组件。
+
+```tsx
+// 不好的例子
+function UserDashboard() {
+  return (
+    <div>
+      <header>...</header>
+      <sidebar>...</sidebar>
+      <main>...</main>
+    </div>
+  );
+}
+
+// 好的例子
+function UserDashboard() {
+  return (
+    <div>
+      <Header />
+      <Sidebar />
+      <MainContent />
+    </div>
+  );
+}
+```
+
+## 2. 使用 TypeScript
+
+TypeScript 能帮助你在开发时就发现潜在的错误：
+
+```TypeScript
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  variant?: "primary" | "secondary";
+}
+
+function Button({ label, onClick, variant = "primary" }: ButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={`btn btn-${variant}`}
+    >
+      {label}
+    </button>
+  );
+}
+```
+
+## 3. 使用 Hooks 抽象逻辑
+
+将复杂的逻辑抽象到自定义 Hook 中：
+
+```tsx
+function useWindowSize() {
+  const [size, setSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return size;
+}
+```
+
+## 总结
+
+遵循这些最佳实践，能帮助你写出更好的 React 组件。记住：
+
+- 保持组件的单一职责
+- 使用 TypeScript 增加类型安全
+- 善用 Hooks 抽象逻辑
+
+你有什么其他的最佳实践吗？欢迎在评论区分享！
