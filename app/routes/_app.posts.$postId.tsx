@@ -32,7 +32,7 @@ export default function PostRoute() {
   }, [post.content]);
 
   return (
-    <article className="prose prose-gray mx-auto dark:prose-invert lg:prose-lg">
+    <article className="prose prose-gray mx-auto dark:prose-invert">
       <header className="mb-8 not-prose">
         <h1 className="mb-2 text-3xl font-bold md:text-4xl">{post.title}</h1>
         <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">{post.date}</p>
